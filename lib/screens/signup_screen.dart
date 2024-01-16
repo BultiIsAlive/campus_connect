@@ -222,7 +222,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   height: 24,
                 ),
 
-                // Login Button
+                // Sign Up Button
                 InkWell(
                   onTap: signUpUser,
                   child: Container(
@@ -251,12 +251,12 @@ class _SignupScreenState extends State<SignupScreen> {
                   height: 24,
                 ),
 
-                // SignUp Transition
+                // Login Transition
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      child: const Text("Don't have an account? "),
+                      child: const Text("Already have an account? "),
                       padding: const EdgeInsets.symmetric(
                         vertical: 8,
                       ),

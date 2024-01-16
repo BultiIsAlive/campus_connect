@@ -77,22 +77,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 userData['Username'],
               ),
               centerTitle: false,
-              actions: [
-                if (!isCurrentUserProfile)
-                  IconButton(
-                    icon: Icon(Icons.messenger_outline),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ChatScreen(
-                            chatUserId: widget.uid,
-                          ), // Create a new chat screen
-                        ),
-                      );
-                    },
-                  )
-              ],
+              // actions: [
+              //   if (!isCurrentUserProfile)
+              //     IconButton(
+              //       icon: Icon(Icons.messenger_outline),
+              //       onPressed: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => ChatScreen(
+              //               chatUserId: widget.uid,
+              //             ), // Create a new chat screen
+              //           ),
+              //         );
+              //       },
+              //     )
+              // ],
             ),
             body: ListView(
               children: [

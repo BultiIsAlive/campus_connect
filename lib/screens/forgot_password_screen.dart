@@ -1,81 +1,69 @@
-import 'package:campus_connect/resources/auth_methods.dart';
-import 'package:campus_connect/responsive/mobile_screen_layout.dart';
-import 'package:campus_connect/responsive/responsive_layout_screen.dart';
-import 'package:campus_connect/responsive/web_screen_layout.dart';
-import 'package:campus_connect/screens/forgot_password_screen.dart';
-import 'package:campus_connect/screens/signup_screen.dart';
+import 'package:campus_connect/screens/login_screen.dart';
 import 'package:campus_connect/utils/colors.dart';
 import 'package:campus_connect/utils/global_variables.dart';
 import 'package:campus_connect/utils/utils.dart';
 import 'package:campus_connect/widgets/text_field_input.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class ForgetPasswordScreen extends StatefulWidget {
+  const ForgetPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   bool _isLoading = false;
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
     _emailController.dispose();
-    _passwordController.dispose();
+    super.dispose();
   }
 
-  void loginUser() async {
-    setState(() {
-      _isLoading = true;
+  void navigateToLogin() {
+    Navigator.of(context).pop(); // Go back to the login screen
+  }
+
+  void ResetPassword() {
+    String email = _emailController.text;
+
+    // Reference to the users collection in Firestore
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+    // Check if the email exists in the users collection
+    users.where('Email', isEqualTo: email).get().then((querySnapshot) {
+      if (querySnapshot.docs.isEmpty) {
+        // Email is not registered
+        showSnackBar('Email is not registered', context);
+      } else {
+        // Email is registered, send reset password email
+        _auth.sendPasswordResetEmail(email: email).then((value) {
+          showSnackBar('Email Sent', context);
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => LoginScreen()));
+        }).onError((error, stackTrace) {
+          showSnackBar(error.toString(), context);
+        });
+      }
+    }).onError((error, stackTrace) {
+      // Handle error querying the users collection
+      showSnackBar('Error checking email registration: $error', context);
     });
-    String res = await AuthMethods().loginUser(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
-
-    if (res == "Success") {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const ResponsiveLayout(
-            mobileScreenLayout: MobileScreenLayout(),
-            webScreenLayout: WebScreenLayout(),
-          ),
-        ),
-      );
-    } else {
-      showSnackBar(res, context);
-    }
-    setState(() {
-      _isLoading = false;
-    });
-  }
-
-  void navigateToSignup() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const SignupScreen(),
-      ),
-    );
-  }
-
-  void navigateToForgetPassword() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ForgetPasswordScreen(),
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Reset Password'),
+      ),
       body: Container(
         alignment: Alignment.center,
         child: SingleChildScrollView(
@@ -111,21 +99,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 24,
                   ),
 
-                  // Password Input TextArea
-                  TextFieldInput(
-                    hintText: 'Password',
-                    textInputType: TextInputType.text,
-                    textEditingController: _passwordController,
-                    isPass: true,
-                  ),
-
-                  const SizedBox(
-                    height: 24,
-                  ),
-
-                  // Login Button
+                  // Reset Password Button
                   InkWell(
-                    onTap: loginUser,
+                    onTap: ResetPassword,
                     child: Container(
                       child: _isLoading
                           ? const Center(
@@ -133,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: primaryColor,
                               ),
                             )
-                          : const Text('Log In'),
+                          : const Text('Reset Password'),
                       width: double.infinity,
                       alignment: Alignment.center,
                       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -152,48 +128,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 24,
                   ),
 
-                  // Forget Password Transition
+                  // Login Transition
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        child: const Text("Don't remember password? "),
+                        child: const Text("Already have an account? "),
                         padding: const EdgeInsets.symmetric(
                           vertical: 8,
                         ),
                       ),
                       GestureDetector(
-                        onTap: navigateToForgetPassword,
+                        onTap: navigateToLogin,
                         child: Container(
                           child: const Text(
-                            "Forget Password",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 8,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  // SignUp Transition
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: const Text("Don't have an account? "),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: navigateToSignup,
-                        child: Container(
-                          child: const Text(
-                            "Sign Up",
+                            "Login",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),

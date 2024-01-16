@@ -30,10 +30,28 @@ class _ChatScreenState extends State<ChatScreen> {
               .get(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Loading...');
+              return Row(
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(width: 10),
+                  Text('Loading...'),
+                ],
+              );
             }
+
             var userData = snapshot.data!.data() as Map<String, dynamic>;
-            return Text(userData['Username']);
+
+            String profileImage = userData['PhotoUrl'] ?? '';
+
+            return Row(
+              children: [
+                CircleAvatar(
+                  backgroundImage: NetworkImage(profileImage),
+                ),
+                SizedBox(width: 10),
+                Text(userData['Username']),
+              ],
+            );
           },
         ),
       ),
@@ -60,13 +78,54 @@ class _ChatScreenState extends State<ChatScreen> {
                   itemBuilder: (context, index) {
                     var messageData =
                         messages[index].data() as Map<String, dynamic>;
-                    return ListTile(
-                      title: Text(messageData['message']),
-                      subtitle: Text(
-                        messageData['sender'] == currentUser.uid
-                            ? 'You'
-                            : messageData['senderUsername'],
-                      ),
+                    bool isCurrentUser =
+                        messageData['sender'] == currentUser.uid;
+
+                    return Row(
+                      mainAxisAlignment: isCurrentUser
+                          ? MainAxisAlignment.end
+                          : MainAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Container(
+                            margin: isCurrentUser
+                                ? EdgeInsets.only(
+                                    left: 50,
+                                    top: 20,
+                                  )
+                                : EdgeInsets.only(right: 50, top: 20),
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                                color: isCurrentUser
+                                    ? Color.fromARGB(255, 216, 62, 255)
+                                    : Color.fromARGB(255, 95, 132, 255),
+                                borderRadius: isCurrentUser
+                                    ? BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                        bottomLeft: Radius.circular(20),
+                                      )
+                                    : BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                        bottomRight: Radius.circular(20),
+                                      )),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  messageData['message'],
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     );
                   },
                 );
@@ -80,6 +139,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 Expanded(
                   child: TextField(
                     controller: messageController,
+                    maxLines: null, // Allow multiline input
                     decoration: InputDecoration(
                       hintText: 'Type your message...',
                     ),

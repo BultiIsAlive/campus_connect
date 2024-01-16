@@ -24,22 +24,22 @@ class FeedScreen extends StatelessWidget {
           colorFilter: ColorFilter.mode(primaryColor, BlendMode.srcIn),
           height: 32,
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ChatListScreen(), // Create a new chat screen
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.messenger_outline,
-            ),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //           builder: (context) =>
+        //               ChatListScreen(), // Create a new chat screen
+        //         ),
+        //       );
+        //     },
+        //     icon: const Icon(
+        //       Icons.messenger_outline,
+        //     ),
+        //   ),
+        // ],
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance

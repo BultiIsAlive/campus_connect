@@ -7,12 +7,39 @@
    viewBox="0 0 60.136284 60.582035"
    version="1.1"
    id="svg1"
+   sodipodi:docname="CampusConnectLogo.svg"
+   inkscape:export-filename="CampusConnectLogo.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
-
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.5471818"
+     inkscape:cx="149.95006"
+     inkscape:cy="135.40749"
+     inkscape:window-width="1366"
+     inkscape:window-height="697"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
   <g
      id="layer1"
-     transform="translate(-77.521669,-93.28391)">
+     transform="matrix(0.99861906,0,0,0.99861906,-77.373094,-93.113261)">
     <path
        d="m 103.21332,153.86594 q -5.551669,0 -10.292871,-1.62092 -4.741203,-1.66145 -8.185666,-4.7412 -3.40394,-3.07976 -5.308526,-7.49678 -1.904585,-4.45754 -1.904585,-10.04972 0,-7.41573 2.715047,-13.98047 2.755571,-6.56474 7.739912,-11.71118 4.781725,-4.943816 11.670652,-7.942525 6.929447,-3.039232 14.709887,-3.039232 4.70068,0 9.52292,1.134647 4.82225,1.134646 7.21312,2.634001 l 3.03923,-2.22877 h 3.52551 l -4.49807,20.990959 h -3.56603 q -0.81046,-9.19874 -4.90329,-13.98046 -4.05231,-4.822252 -10.45496,-4.822252 -4.70068,0 -8.67195,2.796093 -3.97126,2.796099 -7.051014,8.590899 -2.512432,4.78172 -3.849694,11.10333 -1.296739,6.28108 -1.296739,11.79222 0,8.10462 3.93074,12.60268 3.930737,4.49806 10.536007,4.49806 5.7948,0 10.73862,-3.24184 4.94382,-3.24185 9.52293,-9.36084 l 3.12028,2.1072 q -1.98564,3.07976 -4.74121,6.07847 -2.75557,2.95818 -6.28108,5.14643 -3.6876,2.30982 -7.61834,3.52551 -3.89022,1.21569 -9.36083,1.21569 z"
        id="text1"

@@ -80,7 +80,8 @@ class AuthMethods {
           username.isNotEmpty ||
           bio.isNotEmpty ||
           registration.isNotEmpty ||
-          enrollment.isNotEmpty) {
+          enrollment.isNotEmpty ||
+          file != null) {
         // Register User
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
