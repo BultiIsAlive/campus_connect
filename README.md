@@ -4,6 +4,13 @@ This a basic social media app for university students. I'm using Instagram UI. A
 Format for registeration number: J12P345678 (Use your own number)
 Format for enrollment number: 12R/34567 (Use your own number)
 
+Used tech:
+- Flutter
+- Dart language
+- Firebase (firestore, auth, realtime and storage)
+
+Implemented forget password functionality
+
 My firebase database is running you can use your own by changing API numbers in main.dart
 
 This is a setup mainly for android (Fully responsive) and basic setup for web (Basic Responsive).
